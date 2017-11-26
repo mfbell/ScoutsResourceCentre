@@ -1,5 +1,5 @@
 """
-WSGI config for ScoutResourceCentre project.
+WSGI config for ScoutsResourceCentre project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
