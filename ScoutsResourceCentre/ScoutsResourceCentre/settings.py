@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'ScoutResourceCentre.urls'
+ROOT_URLCONF = 'ScoutsResourceCentre.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ScoutResourceCentre.wsgi.application'
+WSGI_APPLICATION = 'ScoutsResourceCentre.wsgi.application'
 
 
 # Database
