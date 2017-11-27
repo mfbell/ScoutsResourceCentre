@@ -18,7 +18,7 @@ def default_camp_end_time():
 
 
 class Event(Resource):
-    """Base event model."""
+    """Base event"""
     plan = models.TextField(help_text="The event plan.")
     resources = models.TextField(help_text="Resources needed to run the event.")
     equipment  = models.TextField(help_text="Equipment needed to run the event.")
@@ -80,15 +80,12 @@ class Event(Resource):
         help_text="Is the event inside, outside or both.",
     )
 
-    def __str__(self):
-        return "Base event model"
-
     class Meta:
         abstract = True
 
 
 class Activity(Event):
-    """Activity model."""
+    """Activity"""
     """PLACEHOLDER = "PL"
     PLACEHOLDERS = (
         (PLACEHOLDER, "Placeholder 1"),
@@ -134,12 +131,9 @@ class Activity(Event):
         """Total cost calculator."""
         return self.cost_per_young_person * self.young_people
 
-    def __str__(self):
-        return "Activity"
-
 
 class Meeting(Event):
-    """Meeting model."""
+    """Meeting"""
     activities = models.ManyToManyField(
         Activity,
         help_text="Activities happening at the meeting.",
@@ -172,12 +166,9 @@ class Meeting(Event):
         """Total time calculator."""
         return extra_time #+ activities time_length
 
-    def __str__(self):
-        return "Meeting"
-
 
 class Camp(Event):
-    """Camp model."""
+    """Camp"""
     activities = models.ManyToManyField(
         Activity,
         help_text="Activities happening at the camp.",
@@ -228,9 +219,6 @@ class Camp(Event):
     def total_cost(self):
         """Total cost calculator."""
         return self.total_site_cost + total_food_cost + total_other_costs #+ activity costs
-
-    def __str__(self):
-        return "Camp"
 
 
 """Future resource.

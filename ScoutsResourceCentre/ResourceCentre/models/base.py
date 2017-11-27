@@ -20,7 +20,7 @@ def get_sentinel_parent():
     return sentinel
 
 class Resource(models.Model):
-    """Base resource model."""
+    """Base resource"""
     RESOURCE_NAME = "resource"
     id = models.UUIDField(
         primary_key=True,
@@ -131,7 +131,7 @@ class Resource(models.Model):
     """
 
     def __str__(self):
-        return "Base resource model"
+        return ": ".join([self.__doc___, self.title])
 
     class Meta:
         abstract = True

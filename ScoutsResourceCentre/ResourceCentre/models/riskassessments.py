@@ -6,7 +6,7 @@ from .base import Resource
 
 
 class RiskAssessmentElement(Resource):
-    """Risk assessment element model."""
+    """Risk Assessment Element"""
     risk = models.CharField(
         max_length=128,
         help_text="State the risk.",
@@ -75,12 +75,9 @@ class RiskAssessmentElement(Resource):
         else:
             return "Extream"
 
-    def __str__(self):
-        return "Risk assessment element"
-
 
 class RiskAssessment(Resource):
-    """Risk assessment model."""
+    """Risk Assessment"""
     elements = models.ManyToManyField(
         RiskAssessmentElement,
         help_text="Risk asessments are made up of individual risk assessments for reusability.",
@@ -92,6 +89,3 @@ class RiskAssessment(Resource):
     def level(self):
         """Risk level calculator."""
         return #risk bases on elements' risk level
-
-    def __str__(self):
-        return "Risk assessment"
