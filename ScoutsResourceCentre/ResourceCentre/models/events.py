@@ -1,6 +1,6 @@
 """Event models."""
 
-from datetime import time
+from datetime import time, timedelta
 
 from django.db import models
 
@@ -10,32 +10,44 @@ from .riskassessments import RiskAssessment
 
 def default_camp_start_time():
     """Returns datetime time object set to 19:00."""
-    return time(19, 0)
+    return time(19)
 
 def default_camp_end_time():
     """Returns datetime time object set to 16:00."""
-    return time(16, 0)
-
+    return time(16)
 
 class Event(Resource):
     """Base event"""
     plan = models.TextField(help_text="The event plan.")
-    resources = models.TextField(help_text="Resources needed to run the event.")
-    equipment  = models.TextField(help_text="Equipment needed to run the event.")
+    resources = models.TextField(
+        blank=True,
+        help_text="Resources needed to run the event.",
+    )
+    equipment  = models.TextField(
+        blank=True,
+        help_text="Equipment needed to run the event.",
+    )
     risk_assessment  = models.ForeignKey(
         RiskAssessment,
         on_delete=models.PROTECT,
         help_text="Event risk assessment.",
-        related_name="events",
-        related_query_name="event",
+        related_name="%(class)s_events",
+        related_query_name="%(class)s_event",
+        blank=True
     )
     location = models.CharField(
         max_length=256,
         help_text="Event location.",
     )
     # Could at location database.
-    leaders = models.IntegerField(help_text="Number of leaders needed.")
-    young_leaders = models.IntegerField(help_text="Number of young leaders.")
+    leaders = models.IntegerField(
+        default=3,
+        help_text="Number of leaders needed.",
+    )
+    young_leaders = models.IntegerField(
+        default=0,
+        help_text="Number of young leaders.",
+    )
     young_people = models.IntegerField(help_text="Number of young people.")
     young_people_approx = models.BooleanField(
         default=False,
@@ -68,15 +80,15 @@ class Event(Resource):
     BOTH = "BO"
     EITHER = "EI"
     SIDES = (
-        (INSIDE, "Inside only"),
         (OUTSIDE, "Outside only"),
+        (INSIDE, "Inside only"),
         (EITHER, "Inside or outside"),
         (BOTH, "Inside and outside"),
     )
     inside_outside = models.CharField(
         max_length=2,
         choices=SIDES,
-        default=EITHER,
+        default=OUTSIDE,
         help_text="Is the event inside, outside or both.",
     )
 
@@ -102,6 +114,7 @@ class Activity(Event):
         help_text="Is the activity inside, outside or both.",
     )
     # Should make activties/cats a table"""
+    """
     badges = models.ManyToManyField(
         'BadgeManager.Badges',
         help_text="Badges related to the activity.",
@@ -113,18 +126,22 @@ class Activity(Event):
         help_text="Badge requirements related to the activity.",
         related_name="activities",
         related_query_name="activity",
-    )
+    )"""
     cost_per_young_person = models.DecimalField(
         max_digits=11,
         decimal_places=2,
         help_text="Cost per young person.",
+        default=0,
     )
     cost_approx = models.BooleanField(
         default=False,
         help_text="Is the cost per young person an approximate number?",
     )
     #permits permits should be under activities.
-    time_length = models.DurationField(help_text="Activity length.")
+    time = models.DurationField(
+        default=CTDServer,
+        help_text="Activity length.",
+    )
 
     @property
     def total_cost(self):

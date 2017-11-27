@@ -5,8 +5,9 @@ from . import views
 
 app_name = 'ResourceCentre'
 
-resources_patterns = [
+resource_patterns = [
     url(r"^$", views.resource, name="resource"),
+    url(r"^tree/$", views.tree, name="tree"),
 ]
 
 resource_pattern = url(r"^(?P<pk>[a-fA-F0-9]{32})/", include(resource_patterns))

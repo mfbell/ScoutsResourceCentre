@@ -18,3 +18,6 @@ def camps(request):
 
 def resource(request, pk):
     return HttpResponse("Resource {} landing page.".format(pk))
+
+def tree(request, pk):
+    return HttpResponse("Resource {} relations tree view.".format(pk))

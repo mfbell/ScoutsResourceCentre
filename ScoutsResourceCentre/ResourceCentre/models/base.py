@@ -31,7 +31,11 @@ class Resource(models.Model):
         max_length=128,
         help_text="A short, one-point title for your resources.",
     )
-    desciption = models.TextField(help_text="Summerise  your resources.")
+    desciption = models.CharField(
+        max_length=512,
+        blank=True,
+        help_text="Summerise  your resources.",
+    )
     beavers = models.BooleanField(
         default=False,
         help_text="Is your resource aimed at the Beaver section?",
@@ -64,32 +68,36 @@ class Resource(models.Model):
         default=False,
         help_text="Is the resource curated? Results in extra protection and restrictions.",
     )
+    # Inherited FK related name/query name catch
+    # https://docs.djangoproject.com/en/1.11/topics/db/models/#be-careful-with-related-name-and-related-query-name
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET(get_sentinel_user),
         editable=False,
         help_text="The orginal creator.",
-        related_name="created_resources",
-        related_query_name="created_resource",
+        related_name="%(class)s_created_resources",
+        related_query_name="%(class)s_created_resource",
     )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET(get_sentinel_user),
         help_text="The resource owner.",
-        related_name="owned_resources",
-        related_query_name="owned_resource",
+        related_name="%(class)s_owned_resources",
+        related_query_name="%(class)s_owned_resource",
     )
     editors = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         help_text="Users with permission to edit the resource.",
-        related_name="editor_roles",
-        related_query_name="editor_role",
+        related_name="%(class)s_editor_roles",
+        related_query_name="%(class)s_editor_role",
+        blank=True,
     )
     contributors = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         help_text="Users who have contributed to the resource.",
-        related_name="contributions",
-        related_query_name="contribution",
+        related_name="%(class)s_contributions",
+        related_query_name="%(class)s_contribution",
+        blank=True
     )
     PUBLIC = "PU"
     HIDEN = "HI"
@@ -108,8 +116,8 @@ class Resource(models.Model):
         blank=True,
         on_delete=models.SET(get_sentinel_parent),
         help_text="For if the resource was a copy and edited, the parent.",
-        related_name="children",
-        related_query_name="child",
+        related_name="%(class)s_children",
+        related_query_name="%(class)s_child",
     )
     views = models.IntegerField(default=0)
     #generated_from future feature
