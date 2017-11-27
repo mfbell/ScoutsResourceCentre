@@ -1,9 +1,12 @@
+"""Risk assessment models."""
+
 from django.db import models
 
-from base import Resource
+from .base import Resource
 
 
 class RiskAssessmentElement(Resource):
+    """Risk assessment element model."""
     risk = models.CharField(
         max_length=128,
         help_text="State the risk.",
@@ -59,6 +62,7 @@ class RiskAssessmentElement(Resource):
 
     @property
     def level(self):
+        """Risk level calculator."""
         severity = self.RATINGS.index(self.severity) + 1
         chance = self.RATINGS.index(self.chance) + 1
         risk = severity * chance
@@ -71,8 +75,12 @@ class RiskAssessmentElement(Resource):
         else:
             return "Extream"
 
+    def __str__(self):
+        return "Risk assessment element"
+
 
 class RiskAssessment(Resource):
+    """Risk assessment model."""
     elements = models.ManyToManyField(
         RiskAssessmentElement,
         on_delete=models.PROTECT,
@@ -81,4 +89,8 @@ class RiskAssessment(Resource):
 
     @property
     def level(self):
+        """Risk level calculator."""
         return risk bases on elements' risk level
+
+    def __str__(self):
+        return "Risk assessment"

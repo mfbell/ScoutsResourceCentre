@@ -1,29 +1,25 @@
-from uuid import uuid4
+"""Base models."""
+
+import uuid
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 
 
-
-def get_sentinel_user():
-    return get_user_model().objects.get_or_create(username='deleted')[0]
-
-def get_sentinel_parent():
-    return
-
 class Resource(models.Model):
+    """Base resource model."""
+    RESOURCE_NAME = "resource"
     id = models.UUIDField(
         primary_key=True,
-        default=uuid4,
+        default=uuid.uuid4,
         editable=False,
-        help_text="Unique ID",
     )
     title = models.CharField(
         max_length=128,
-        help_text="A short, one-point title for your resource.",
+        help_text="A short, one-point title for your resources.",
     )
-    desciption = models.TextField(help_text="What is your resource?")
+    desciption = models.TextField(help_text="Summerise  your resources.")
     beavers = models.BooleanField(
         default=False,
         help_text="Is your resource aimed at the Beaver section?",
@@ -90,7 +86,7 @@ class Resource(models.Model):
         'self',
         blank=True
         on_delete=models.SET(get_sentinel_parent)
-        help_text="If the resource for copied and edited, the parent.",
+        help_text="For if the resource was a copy and edited, the parent.",
     )
     #children from parent?
     #generated_from future feature
@@ -98,5 +94,21 @@ class Resource(models.Model):
     #likes from ForeignKey
     #saves from ForeignKey
 
+    def __str__(self):
+        return "Base resource model"
+
     class Meta:
         abstract = True
+
+
+def get_sentinel_user():
+    """Get sentinel user."""
+    return get_user_model().objects.get_or_create(username='deleted')[0]
+
+def get_sentinel_parent():
+    """Get sentinel parent."""
+    sentinel = Resource.objects.get_or_create(
+        id=uuid.uuid("847efe04e7484568910193961dd191ff"),
+        title='deleted'
+    )[0]
+    return sentinel

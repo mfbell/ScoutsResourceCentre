@@ -1,7 +1,9 @@
-from base import Resource
+"""External models."""
+
+#from base import Resource
 
 
-"""
+"""Future resources.
 class External(Base):
     url
 
