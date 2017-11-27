@@ -2,15 +2,17 @@
 
 from datetime import time
 
+from django.db import models
+
 from .base import Resource
-from .riskAssessment import RiskAssessment
+from .riskassessments import RiskAssessment
 
 
 def default_camp_start_time():
     """Returns datetime time object set to 19:00."""
     return time(19, 0)
 
-def defaut_camp_end_time():
+def default_camp_end_time():
     """Returns datetime time object set to 16:00."""
     return time(16, 0)
 
@@ -23,7 +25,9 @@ class Event(Resource):
     risk_assessment  = models.ForeignKey(
         RiskAssessment,
         on_delete=models.PROTECT,
-        help_text="Event risk assessment."
+        help_text="Event risk assessment.",
+        related_name="events",
+        related_query_name="event",
     )
     location = models.CharField(
         max_length=256,
@@ -85,7 +89,7 @@ class Event(Resource):
 
 class Activity(Event):
     """Activity model."""
-    PLACEHOLDER = "PL"
+    """PLACEHOLDER = "PL"
     PLACEHOLDERS = (
         (PLACEHOLDER, "Placeholder 1"),
         (PLACEHOLDER, "Placeholder 2"),
@@ -100,21 +104,23 @@ class Activity(Event):
         choices=PLACEHOLDERS,
         help_text="Is the activity inside, outside or both.",
     )
-    # Should make activties/cats a table
+    # Should make activties/cats a table"""
     badges = models.ManyToManyField(
         'BadgeManager.Badges',
-        on_delete=models.PROTECT,
         help_text="Badges related to the activity.",
+        related_name="activities",
+        related_query_name="activity",
     )
     badge_requirements = models.ManyToManyField(
         'BadgeManager.Requirements',
-        on_delete=models.PROTECT,
         help_text="Badge requirements related to the activity.",
+        related_name="activities",
+        related_query_name="activity",
     )
     cost_per_young_person = models.DecimalField(
-        max_digits=11
-        decimal_places=2
-        help_text="Cost per young person."
+        max_digits=11,
+        decimal_places=2,
+        help_text="Cost per young person.",
     )
     cost_approx = models.BooleanField(
         default=False,
@@ -136,13 +142,14 @@ class Meeting(Event):
     """Meeting model."""
     activities = models.ManyToManyField(
         Activity,
-        on_delete=models.PROTECT,
         help_text="Activities happening at the meeting.",
+        related_name="meetings",
+        related_query_name="meeting",
     )
     extra_costs_per_young_person = models.DecimalField(
-        max_digits=11
-        decimal_places=2
-        help_text="Extra meeting costs per young person."
+        max_digits=11,
+        decimal_places=2,
+        help_text="Extra meeting costs per young person.",
     )
     extra_cost_approx = models.BooleanField(
         default=False,
@@ -158,12 +165,12 @@ class Meeting(Event):
     @property
     def total_cost(self):
         """Total cost calculator."""
-        return self.total_extra_costs + activities cost
+        return self.total_extra_costs #+ activities cost
 
     @property
     def time_length(self):
         """Total time calculator."""
-        return extra_time + activities time_length
+        return extra_time #+ activities time_length
 
     def __str__(self):
         return "Meeting"
@@ -173,32 +180,33 @@ class Camp(Event):
     """Camp model."""
     activities = models.ManyToManyField(
         Activity,
-        on_delete=models.PROTECT,
-        help_text="Activities happening at the meeting.",
+        help_text="Activities happening at the camp.",
+        related_name="camps",
+        related_query_name="camp",
     )
     nights = models.IntegerField(help_text="Number of nights")
     start_time = models.TimeField(
-        default=default_camp_start_time
-        help_text="Camp start time."
+        default=default_camp_start_time,
+        help_text="Camp start time.",
     )
     end_time = models.TimeField(
-        default=default_camp_end_time
-        help_text="Camp end time."
+        default=default_camp_end_time,
+        help_text="Camp end time.",
     )
     site_cost_per_young_person_per_night = models.DecimalField(
-        max_digits=11
-        decimal_places=2
-        help_text="Site costs per young person per nights."
+        max_digits=11,
+        decimal_places=2,
+        help_text="Site costs per young person per nights.",
     )
     food_cost_per_young_person_per_day = models.DecimalField(
-        max_digits=11
-        decimal_places=2
-        help_text="Food costs per young person per day."
+        max_digits=11,
+        decimal_places=2,
+        help_text="Food costs per young person per day.",
     )
     other_costs_per_young_person = models.DecimalField(
-        max_digits=11
-        decimal_places=2
-        help_text="Extra camp costs per young person."
+        max_digits=11,
+        decimal_places=2,
+        help_text="Extra camp costs per young person.",
     )
 
     @property
@@ -219,7 +227,7 @@ class Camp(Event):
     @property
     def total_cost(self):
         """Total cost calculator."""
-        return self.total_site_cost + total_food_cost + total_other_costs + activity costs
+        return self.total_site_cost + total_food_cost + total_other_costs #+ activity costs
 
     def __str__(self):
         return "Camp"

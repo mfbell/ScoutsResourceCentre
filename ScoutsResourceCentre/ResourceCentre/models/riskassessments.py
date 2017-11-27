@@ -83,14 +83,15 @@ class RiskAssessment(Resource):
     """Risk assessment model."""
     elements = models.ManyToManyField(
         RiskAssessmentElement,
-        on_delete=models.PROTECT,
         help_text="Risk asessments are made up of individual risk assessments for reusability.",
+        related_name="risk_assessments",
+        related_query_name="risk_assessment",
     )
 
     @property
     def level(self):
         """Risk level calculator."""
-        return risk bases on elements' risk level
+        return #risk bases on elements' risk level
 
     def __str__(self):
         return "Risk assessment"
