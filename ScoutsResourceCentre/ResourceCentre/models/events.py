@@ -39,7 +39,7 @@ class Event(Resource):
         max_length=256,
         help_text="Event location.",
     )
-    # Could at location database.
+    # Could add location database.
     leaders = models.IntegerField(
         default=3,
         help_text="Number of leaders needed.",
@@ -138,8 +138,7 @@ class Activity(Event):
         help_text="Is the cost per young person an approximate number?",
     )
     #permits permits should be under activities.
-    time = models.DurationField(
-        default=CTDServer,
+    duration = models.DurationField(
         help_text="Activity length.",
     )
 
@@ -166,7 +165,9 @@ class Meeting(Event):
         default=False,
         help_text="Is the extra costs per young person an approximate number?",
     )
-    extra_time = models.DurationField(help_text="Extra time needed for the meeting.")
+    extra_duration = models.DurationField(
+        help_text="Extra time needed for the meeting.",
+    )
 
     @property
     def total_extra_costs(self):
@@ -181,7 +182,7 @@ class Meeting(Event):
     @property
     def time_length(self):
         """Total time calculator."""
-        return extra_time #+ activities time_length
+        return self.extra_duration #+ activities time_length
 
 
 class Camp(Event):

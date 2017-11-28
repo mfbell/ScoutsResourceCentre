@@ -17,7 +17,8 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^resources/', include('ResourceCentre.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^resources/', include('ResourceCentre.urls')),
+    url(r'badges/', include('BadgeInfo.urls')),
     url(r'^', include('LandingPage.urls')),
 ]

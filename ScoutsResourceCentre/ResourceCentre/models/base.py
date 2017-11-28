@@ -21,7 +21,6 @@ def get_sentinel_parent():
 
 class Resource(models.Model):
     """Base resource"""
-    RESOURCE_NAME = "resource"
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,

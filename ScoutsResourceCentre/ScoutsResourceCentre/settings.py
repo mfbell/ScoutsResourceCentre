@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'BadgeInfo.apps.BadgeinfoConfig',
     'LandingPage.apps.LandingpageConfig',
     'ResourceCentre.apps.ResourcecentreConfig',
     'django.contrib.admin',
