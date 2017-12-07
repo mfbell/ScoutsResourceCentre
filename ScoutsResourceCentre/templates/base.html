@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css" />
+    <title>{% block title %}Scouts Resource Centre{% endblock %}</title>
+</head>
+
+<body>
+    <div id="navbar">
+        {% block navbar %}
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/resources/">Resources</a></li>
+            <li><a href="/badges/">Badges</a></li>
+            <li><a href="/users/">Users</a></li>
+        </ul>
+        {% endblock %}
+    </div>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div id="social">
+      {% block social %}
+      <ul>
+        <li><a href="//twitter.com">Twitter</a></li>
+        <li><a href="facebook.com">Facebook</a></li>
+        <li><a href="mailto:">Email</a></li>
+      </ul>
+      {% endblock %}
+    </div>
+
+    <div id="footer">
+      {% block footer %}
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="">Stuff</a></li>
+      </ul>
+      {% endblock %}
+</body>
+</html>
