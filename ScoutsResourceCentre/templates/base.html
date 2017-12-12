@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,57 +6,33 @@
     <title>{% block title %}Scouts Resource Centre{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'"> -->
-    <link rel="icon" href="static/icon.ico">
+    <link rel="icon" href="{% static "images/icon.ico" %}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <!-- Custom CCS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
 
     <meta name="description" content={{ description|slice:":150" }}>
     <meta name="keywords" content={{ keywords }}>
     <meta name="author" content={{ author|default:"Scouts Resource Centre" }}>
 
+    {% block extend_head %}{% endblock %}
+
+    <!-- To do at some point
     <noscript>
       <div>
         <p>We are unable to use JavaScript, functionality will be limited.</p>
       </div>
     </noscript>
+    -->
 
   </head>
 
   <body>
-    <!-- Nav bar -->
-    <div class="row bg-dark">
-      {% block navbar %}
-      <a href="/"><div class="col text-secondary">Scouts Resource Centre</div></a>
-      <a href="/resources/"><div class="col text-secondary">Resources</div></a>
-      <a href="/badges/"><div class="col text-secondary">Badges</div></a>
-      <a href="/users/"><div class="col text-secondary">Users</div></a>
-      {% endblock %}
-    </div>
-
-    <!-- Content -->
-    {% block content %}
-    <p>Content placeholder - This page's content is missing!</p>
-    {% endblock %}
-
-    <!-- Social -->
-    <div>
-      {% block social %}
-      <ul>
-        <li><a href="//twitter.com">Twitter</a></li>
-        <li><a href="facebook.com">Facebook</a></li>
-        <li><a href="mailto:">Email</a></li>
-      </ul>
-      {% endblock %}
-    </div>
-
-    <!-- Footer -->
-    <div class="row">
-      {% block footer %}
-      <a href="/"><div class="col">Home</div></a>
-      <a href=""><div class="col">Stuff</div></a>
+    <div class="container-fluid">
+      {% block page %}
+        <p>Content placeholder - This page's content is missing!</p>
       {% endblock %}
     </div>
 
