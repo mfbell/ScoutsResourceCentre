@@ -1,11 +1,16 @@
-/* #img_head {
-  position: absolute;
-  //top: 10px;
-  left: 0;
-  width: 100%;
-}
-*/
+{% include static %}
 
-.head_img {
-  background-image: "/static/LandingPage/images/placeholder-bg.jpg"
+html,
+body,
+header,
+#intro {
+    height: 100%;
+}
+
+#intro {
+    background: url("/static/LandingPage/images/placeholder-bg.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
