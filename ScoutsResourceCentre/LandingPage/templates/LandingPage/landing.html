@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extend_head %}
+  <link rel="stylesheet" href="{% static "LandingPage/css/landing.css" %}">
+{% endblock %}
+{% block page %}
+<!--
+    <div>
+      <img src="{% static "LandingPage/images/placeholder-bg.jpg" %}" class="img-fluid" alt="Sample photo">
+      <h1 class="display-h1">Scouts Resource Centre</h1>
+      <p class="lead">Launch</p>
+    </div>-->
+    <div class="row text-center">
+      <div class="head_img text-center image">
+        <!--<img src="{% static "LandingPage/images/placeholder-bg.jpg" %}" class="img-fluid" alt="Sample photo">-->
+        <div>
+          <h1 class="display-h1">Scouts Resource Centre</h1>
+          <p class="lead">Launch</p>
+        </div>
+
+      </div>
+
+    </div>
+
+
+{% endblock %}

@@ -1,42 +1,45 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="style.css" />
+  <head>
+    <meta charset="utf-8">
     <title>{% block title %}Scouts Resource Centre{% endblock %}</title>
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'"> -->
+    <link rel="icon" href="{% static "images/icon.ico" %}">
 
-<body>
-    <div id="navbar">
-        {% block navbar %}
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/resources/">Resources</a></li>
-            <li><a href="/badges/">Badges</a></li>
-            <li><a href="/users/">Users</a></li>
-        </ul>
-        {% endblock %}
-    </div>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <!-- Custom CCS -->
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
 
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
+    <meta name="description" content={{ description|slice:":150" }}>
+    <meta name="keywords" content={{ keywords }}>
+    <meta name="author" content={{ author|default:"Scouts Resource Centre" }}>
 
-    <div id="social">
-      {% block social %}
-      <ul>
-        <li><a href="//twitter.com">Twitter</a></li>
-        <li><a href="facebook.com">Facebook</a></li>
-        <li><a href="mailto:">Email</a></li>
-      </ul>
+    {% block extend_head %}{% endblock %}
+
+    <!-- To do at some point
+    <noscript>
+      <div>
+        <p>We are unable to use JavaScript, functionality will be limited.</p>
+      </div>
+    </noscript>
+    -->
+
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      {% block page %}
+        <p>Content placeholder - This page's content is missing!</p>
       {% endblock %}
     </div>
 
-    <div id="footer">
-      {% block footer %}
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="">Stuff</a></li>
-      </ul>
-      {% endblock %}
-</body>
+    <!-- jQuerry, Popper, Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+  </body>
 </html>

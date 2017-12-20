@@ -1,0 +1,11 @@
+/* #img_head {
+  position: absolute;
+  //top: 10px;
+  left: 0;
+  width: 100%;
+}
+*/
+
+.head_img {
+  background-image: "/static/LandingPage/images/placeholder-bg.jpg"
+}
