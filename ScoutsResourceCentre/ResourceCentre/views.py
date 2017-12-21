@@ -8,8 +8,9 @@ def resources(request):
 def category(request, category):
     return HttpResponse("{} landing page.".format(category))
 
-def resource(request, pk):
-    return HttpResponse("Resource {} landing page.".format(pk))
+def resource(request, external_id, slug, category):
+    return render(request, 'ResourceCentre/resource.html', {"title": slug, "description": external_id, "category": category})
+    #return HttpResponse("Resource {} landing page. {} {}".format(slug, external_id, category))
 
 def tree(request, pk):
     return HttpResponse("Resource {} relations tree view.".format(pk))

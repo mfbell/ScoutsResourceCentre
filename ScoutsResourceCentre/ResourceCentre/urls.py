@@ -5,13 +5,13 @@ from . import views
 
 app_name = 'ResourceCentre'
 
-resource_patterns = [
-    url(r"^$", views.resource, name="resource"),
-    url(r"^tree/$", views.tree, name="tree"),
-]
+#resource_patterns = [
+#    url(r"^$", ),
+#    url(r"^/tree/$", views.tree, name="tree"),
+#]
 
-resource_by_pk_pattern = url(r"(?i)^(?P<external_id>[\w]{6})/(?P<slug>[\w]+)", include(resource_patterns))
-curated_resource_pattern = url(r"^(?P<pk>[\w-]+)/", include(resource_patterns))
+resource_by_pk_pattern = url(r"^(?P<external_id>[\w]{6})/(?P<slug>[\w-]+)", views.resource, name="resource")
+#curated_resource_pattern = url(r"^(?P<pk>[\w-]+)/", include(resource_patterns))
 
 category_patterns = [
     url(r"^$", views.category, name="category"),
@@ -24,5 +24,5 @@ urlpatterns = [
     url(r"^activities/", include(category_patterns), {"category": "activities"}),
     url(r"^meetings/", include(category_patterns), {"category": "meetings"}),
     url(r"^camps/", include(category_patterns), {"category": "camps"}),
-    curated_resource_pattern
+    #curated_resource_pattern
 ]
