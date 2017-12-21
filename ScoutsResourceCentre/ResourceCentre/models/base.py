@@ -1,10 +1,15 @@
 """Base models."""
 
+# PK
 import uuid
+# external_id
+import string
+import random
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.text import slugify
 
 
 def get_sentinel_user():
@@ -19,12 +24,23 @@ def get_sentinel_parent():
     )[0]
     return sentinel
 
+def external_id():
+    """6 long character and digit string generator."""
+    return "".join(random.choice(string.ascii_lowercase + string.digits) for _ in range(6))
+
 class Resource(models.Model):
     """Base resource"""
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
         editable=False,
+    )
+    external_id = models.CharField(
+        default=external_id,
+        max_length=6,
+        unique=True,
+        editable=False,
+        help_text="Unique, static id for external use."
     )
     title = models.CharField(
         max_length=128,
@@ -119,7 +135,11 @@ class Resource(models.Model):
         related_query_name="%(class)s_child",
     )
     views = models.IntegerField(default=0)
-    #generated_from future feature
+    #generated_from <- future feature
+
+    @property
+    def slug(self):
+        return slugify(self.title)
 
     """
     def children(self):

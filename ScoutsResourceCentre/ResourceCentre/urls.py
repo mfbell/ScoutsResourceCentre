@@ -10,7 +10,7 @@ resource_patterns = [
     url(r"^tree/$", views.tree, name="tree"),
 ]
 
-resource_by_pk_pattern = url(r"^(?P<pk>[a-f0-9]{32})/", include(resource_patterns))
+resource_by_pk_pattern = url(r"(?i)^(?P<external_id>[\w]{6})/(?P<slug>[\w]+)", include(resource_patterns))
 curated_resource_pattern = url(r"^(?P<pk>[\w-]+)/", include(resource_patterns))
 
 category_patterns = [
