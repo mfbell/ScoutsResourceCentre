@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block page %}
-  {% include "elements/navbar.html" %}
+  <header>
+    {% include "elements/navbar.html" %}
+    {% block extend_header %}{% endblock %}
+  </header>
   {% block content %}{% endblock %}
-  {% include "elements/social.html" %}
+  <!--{% include "elements/social.html" %}-->
   {% include "elements/footer.html" %}
 {% endblock %}
