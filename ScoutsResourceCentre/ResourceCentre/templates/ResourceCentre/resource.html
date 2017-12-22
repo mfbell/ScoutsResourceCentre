@@ -3,54 +3,66 @@
 
 {% block extend_head %}
   <link rel="stylesheet" href="{% static "ResourceCentre/css/resource.css" %}">
-  <style>
-    #intro {
-      background-image: url("{% static "/ResourceCentre/images/bg-placeholder.jpg" %}");
-    }
-  </style>
 {% endblock %}
 
 {% block extend_header %}
-  <div id="intro" class="view hm-black-strong">
-    <div class="container-fluid full-bg-img d-flex align-items-center justify-content-center">
-      <div class="row d-flex justify-content-center">
-        <div class="col-md-10 text-center">
-          <!-- Heading -->
-          <h2 class="display-4 font-bold white-text mb-2">Fire lighting in the woods</h2>
-          <!-- Divider -->
-          <hr class="hr-light">
-          <!-- Description -->
-          <h4 class="white-text my-4">Evening meeting with the cubs down the woods cooking sauages.</h4>
-
-          <!-- Extra info -->
-          <div class="row d-flex justify-content-center">
-            <div class="col-sm-3 grey-text text-center">
-              <p>
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-                <a href="#authors">Max Bell</a>
-              </p>
-            </div>
-            <div class="col-sm-3 grey-text text-center">
-              <p><i class="fa fa-calendar" aria-hidden="true"></i> 21/12/2017</p>
-            </div>
-            <div class="col-sm-3 grey-text text-center">
-              Cubs
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
 {% endblock %}
 
 {% block content %}
-  <main id="content">
-    <h1>Test text</h1>
-    <p>More text</p>
-    <div id="authors">
-      <h3>Authors</h3>
-      <p>Max Bell</p>
+  <main>
+    <div class="container">
+      <!-- Heading -->
+      <div class="row">
+        <div class="col-10">
+          <!-- Heading -->
+          <h2 class="display-4 font-bold dark-text mb-2 mt-4">Fire lighting in the woods</h2>
+          <!-- Divider -->
+          <hr class="hr-dark">
+          <!-- Description -->
+          <h4 class="dark-text my-4">Evening meeting with the cubs down the woods cooking sauages.</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <p>
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            <a href="#authors">Max Bell</a>
+          </p>
+        </div>
+        <div class="col-sm-3">
+          <p><i class="fa fa-calendar" aria-hidden="true"></i> 21/12/2017</p>
+        </div>
+        <div class="col-sm-3">
+          Cubs, Scouts, Explorers
+        </div>
+      </div>
+      {% block core %}{% endblock %}
+      <!-- Authors -->
+      <div class="row" id="authors">
+        <div class="col-10">
+          <h3>Authors</h3>
+          <hr class="hr-dark">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <h4>Creator</h4>
+          <p>Max Bell</p>
+          <h4>Owner</h4>
+          <p>Max Bell</p>
+        </div>
+        <div class="col-4">
+          <h4>Editors</h4>
+          <p>Max Bell</p>
+          <p>George Demp</p>
+        </div>
+        <div class="col-4">
+          <h4>Contibutors</h4>
+          <p>Fred</p>
+          <p>James</p>
+        </div>
+      </div>
     </div>
+
   </main>
 {% endblock %}
