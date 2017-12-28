@@ -20,7 +20,7 @@ category_patterns = [
 
 urlpatterns = [
     url(r"^$", views.resources, name="resources"),
-    url(r"^riskassessments/", include(category_patterns), {"category": "riskassessments"}),
+    url(r"^risk-assessments/", include(category_patterns), {"category": "riskassessments"}),
     url(r"^activities/", include(category_patterns), {"category": "activities"}),
     url(r"^meetings/", include(category_patterns), {"category": "meetings"}),
     url(r"^camps/", include(category_patterns), {"category": "camps"}),
