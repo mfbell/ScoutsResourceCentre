@@ -38,3 +38,6 @@ Curated Resources
 These will be quality, reviewed resources, which are more likely to be suggested to people to use. Different page design: e.g. large background image. AI could also help create them potentially.
 
 **Community Approved** is an other idea to consider.
+
+Resource Search System
+------
