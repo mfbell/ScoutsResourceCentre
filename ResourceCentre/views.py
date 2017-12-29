@@ -1,15 +1,24 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.views import View
 
 from . import models
-# Activity, Meeting, Camp, RiskAssessment
+
 
 class ResourceCentreLandingView(View):
     """Resource centre laning page view."""
 
     def get(self, request):
-        return HttpResponse("Resource Centre landing page.")
+        # To add
+        # - Suggested content
+        return render(request, "ResourceCentre/landing.html")
+
+
+class CategoryLandingView(View):
+    """Resource category landing page."""
+
+    def get(request, category):
+        return render(request, "ResourceCentre/category-landing.html", {"category": category})
 
 
 class ResourceView(View):
@@ -17,27 +26,21 @@ class ResourceView(View):
 
     # Needs better design to decouple layers.
     def get(self, request, category, external_id, slug):
-        if category == "activities":
+        if category == "Activity":
             resource = get_object_or_404(models.Activity, external_id=external_id, slug=slug)
-        elif category == "meetings":
+            template = "ResourceCentre/resources/activity.html"
+        elif category == "Meeting":
             resource = get_object_or_404(models.Meeting, external_id=external_id, slug=slug)
-        elif category == "camps":
+            template = "ResourceCentre/resources/meeting.html"
+        elif category == "Camp":
             resource = get_object_or_404(models.Camp, external_id=external_id, slug=slug)
-        elif category == "risk-assessments":
+            template = "ResourceCentre/resources/camp.html"
+        elif category == "RiskAssessment":
             resource = get_object_or_404(models.RiskAssessment, external_id=external_id, slug=slug)
+            template = "ResourceCentre/resources/risk-assessment.html"
         else:
-            pass
-
-def category(request, category):
-    return HttpResponse("{} landing page.".format(category))
-
-def resource(request, ):
-    if category == "activity":
-        resource =  get_object_or_404(models.Activity, external_id=external_id)
-    #return render(request, 'ResourceCentre/resource.html', {"title": slug, "description": external_id, "category": category})
-        return HttpResponse("Resource {} landing page. {} {}\n{}".format(slug, external_id, category, dir(resource)))
-    else:
-        return HttpResponse("Unknown")
-
-def tree(request, pk):
-    return HttpResponse("Resource {} relations tree view.".format(pk))
+            raise Http404
+        # To add
+        # - record users' views
+        # - related resources
+        return render(request, template, {'resource': resource})
