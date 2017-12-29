@@ -38,30 +38,31 @@ class ViewDivider:
         return self.options[choice](request, *args, **kwargs)
 
 
-class ResourceView(View):
-    """Processesing requests of detailed resources views."""
+class ActivityView(View):
+    def get(request, external_id, slug):
+        resource = get_object_or_404(models.Activity, external_id=external_id, slug=slug)
+        template = "ResourceCentre/resources/activity.html"
+        return render(request, template, {"resource": resource, "related": related_resources})
 
-    # Need to create inheritied resource collection class/thing - tried but failed.
-    def get(request, category, external_id, slug):
-        if category == "Activity":
-            resource = get_object_or_404(models.Activity, external_id=external_id, slug=slug)
-            template = "ResourceCentre/resources/activity.html"
-        elif category == "Meeting":
-            resource = get_object_or_404(models.Meeting, external_id=external_id, slug=slug)
-            template = "ResourceCentre/resources/meeting.html"
-        elif category == "Camp":
-            resource = get_object_or_404(models.Camp, external_id=external_id, slug=slug)
-            template = "ResourceCentre/resources/camp.html"
-        elif category == "RiskAssessment":
-            resource = get_object_or_404(models.RiskAssessment, external_id=external_id, slug=slug)
-            template = "ResourceCentre/resources/risk-assessment.html"
-        else:
-            raise Http404
-        # View recording
 
-        # Related resource finder - AI project
-        related_resources = []
-        # Render
+class MeetingView(View):
+    def get(request, external_id, slug):
+        resource = get_object_or_404(models.Meeting, external_id=external_id, slug=slug)
+        template = "ResourceCentre/resources/meeting.html"
+        return render(request, template, {"resource": resource, "related": related_resources})
+
+
+class CampView(View):
+    def get(request, external_id, slug):
+        resource = get_object_or_404(models.Camp, external_id=external_id, slug=slug)
+        template = "ResourceCentre/resources/camp.html"
+        return render(request, template, {"resource": resource, "related": related_resources})
+
+
+class RiskAssessmentView(View):
+    def get(request, external_id, slug):
+        resource = get_object_or_404(models.RiskAssessment, external_id=external_id, slug=slug)
+        template = "ResourceCentre/resources/risk-assessment.html"
         return render(request, template, {"resource": resource, "related": related_resources})
 
 
