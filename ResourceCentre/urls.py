@@ -6,7 +6,7 @@ from . import views
 app_name = 'ResourceCentre'
 
 # To do
-# - Add sitemap
+# - add sitemap
 
 resource_patterns = [
     path("", views.ResourceView.as_view(), name="resource"),
