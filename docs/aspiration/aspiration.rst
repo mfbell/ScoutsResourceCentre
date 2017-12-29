@@ -24,6 +24,14 @@ I want to incorporate machine learning into the project. Uses for this could be:
 - The search system
 - Risk assessment suggestion for activities, eta.
 - Resource improvement and duplicate merging.
+- Resource conversion from uploaded files to built in.
+
+Resource Formats
+------
+Built in.
+Attach files, user adds metadata
+
+AI to convert to built in types.
 
 Integration and Sharing
 ------
