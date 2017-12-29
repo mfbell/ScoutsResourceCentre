@@ -9,7 +9,7 @@ app_name = 'ResourceCentre'
 # - add sitemap
 
 resource_patterns = [
-    path("", views.ResourceView.as_view(), name="resource"),
+    path("", views.resource_view_divider, name="resource"),
     path("edit", views.ResourceEditView.as_view(), name="resource-edit"),
 ]
 
