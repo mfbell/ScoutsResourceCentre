@@ -8,11 +8,8 @@ from . import models
 def suggested_resources(user, quantity, category=[], **kwargs):
     return []
 
-def related_resources(resource, quantity=3, category=[], **kwargs):
+def related_resources(resource, quantity, category=[], **kwargs):
     return []
-
-def view_recorder(users, resource, source):
-    pass
 
 class ResourceCentreLandingView(View):
     """Resource centre laning page view."""
