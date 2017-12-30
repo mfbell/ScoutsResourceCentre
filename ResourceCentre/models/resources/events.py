@@ -23,23 +23,26 @@ class Event(Resource):
         blank=True,
         help_text="Resources needed to run the event.",
     )
+    # Could add resource table.
     equipment  = models.TextField(
         blank=True,
         help_text="Equipment needed to run the event.",
     )
+    # Could add equipment table.
     risk_assessment  = models.ForeignKey(
         RiskAssessment,
         on_delete=models.PROTECT,
         help_text="Event risk assessment.",
         related_name="%(class)s_events",
         related_query_name="%(class)s_event",
-        blank=True
+        blank=True,
+        null=True,
     )
     location = models.CharField(
         max_length=256,
         help_text="Event location.",
     )
-    # Could add location database.
+    # Could add location table.
     leaders = models.IntegerField(
         default=3,
         help_text="Number of leaders needed.",
@@ -50,7 +53,7 @@ class Event(Resource):
     )
     young_people = models.IntegerField(help_text="Number of young people.")
     young_people_approx = models.BooleanField(
-        default=False,
+        default=True,
         help_text="Is the number of young people an approximate number?",
     )
     INDIVIDUAL = "ID"
@@ -120,7 +123,7 @@ class Activity(Event):
         help_text="Badges related to the activity.",
         related_name="activities",
         related_query_name="activity",
-    )
+    ) # Won't need this.
     badge_requirements = models.ManyToManyField(
         'BadgeManager.Requirements',
         help_text="Badge requirements related to the activity.",
@@ -137,7 +140,7 @@ class Activity(Event):
         default=False,
         help_text="Is the cost per young person an approximate number?",
     )
-    #permits permits should be under activities.
+    # permits needed should be under activities.
     duration = models.DurationField(
         help_text="Activity length.",
     )
@@ -177,12 +180,18 @@ class Meeting(Event):
     @property
     def total_cost(self):
         """Total cost calculator."""
-        return self.total_extra_costs #+ activities cost
+        cost = self.total_extra_costs
+        for activity in self.activities.objects.all():
+            cost += activity.total_cost
+        return cost
 
     @property
     def time_length(self):
         """Total time calculator."""
-        return self.extra_duration #+ activities time_length
+        time = self.extra_duration
+        for activity in self.activities.objects.all():
+            time += activity.duration
+        return time
 
 
 class Camp(Event):
@@ -236,7 +245,10 @@ class Camp(Event):
     @property
     def total_cost(self):
         """Total cost calculator."""
-        return self.total_site_cost + total_food_cost + total_other_costs #+ activity costs
+        cost = self.total_site_cost + total_food_cost + total_other_costs
+        for activity in self.activities.objects.all():
+            cost += activity.total_cost
+        return cost
 
 
 """Future resource.
