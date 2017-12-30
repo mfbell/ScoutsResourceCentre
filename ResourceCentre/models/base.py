@@ -5,6 +5,8 @@ import uuid
 # external_id
 import string
 import random
+# auto_slug
+import re
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -46,6 +48,10 @@ class Resource(models.Model):
         max_length=128,
         help_text="A short, one-point title for your resources.",
     )
+    slug = models.SlugField(
+        # max_length default 50
+        help_text="Keep it short but specific."
+    )
     desciption = models.CharField(
         max_length=512,
         blank=True,
@@ -53,23 +59,23 @@ class Resource(models.Model):
     )
     beavers = models.BooleanField(
         default=False,
-        help_text="Is your resource aimed at the Beaver section?",
+        help_text="Aimed at the Beaver section.",
     )
     cubs = models.BooleanField(
         default=False,
-        help_text="Is your resource aimed at the Cub section?",
+        help_text="Aimed at the Cub section.",
     )
     scouts = models.BooleanField(
         default=True,
-        help_text="Is your resource aimed at the Scout section?",
+        help_text="Aimed at the Scout section.",
     )
     explorers = models.BooleanField(
         default=False,
-        help_text="Is your resource aimed at the Explorer section?",
+        help_text="Aimed at the Explorer section.",
     )
     network = models.BooleanField(
         default=False,
-        help_text="Is your resource aimed at the Beavers section?",
+        help_text="Aimed at the Beavers section.",
     )
     created = models.DateTimeField(
         auto_now_add=True,
@@ -81,7 +87,7 @@ class Resource(models.Model):
     )
     curated = models.BooleanField(
         default=False,
-        help_text="Is the resource curated? Results in extra protection and restrictions.",
+        help_text="Curated resource.",
     )
     # Inherited FK related name/query name catch
     # https://docs.djangoproject.com/en/1.11/topics/db/models/#be-careful-with-related-name-and-related-query-name
@@ -105,13 +111,15 @@ class Resource(models.Model):
         help_text="Users with permission to edit the resource.",
         related_name="%(class)s_editor_roles",
         related_query_name="%(class)s_editor_role",
-        blank=True,
+        null=True,
+        blank=True
     )
     contributors = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         help_text="Users who have contributed to the resource.",
         related_name="%(class)s_contributions",
         related_query_name="%(class)s_contribution",
+        null=True,
         blank=True
     )
     PUBLIC = "PU"
@@ -128,18 +136,31 @@ class Resource(models.Model):
     )
     parent = models.ForeignKey(
         'self',
+        null=True,
         blank=True,
         on_delete=models.SET(get_sentinel_parent),
         help_text="For if the resource was a copy and edited, the parent.",
         related_name="%(class)s_children",
         related_query_name="%(class)s_child",
     )
+    # View to move to another table.
     views = models.IntegerField(default=0)
     #generated_from <- future feature
 
-    @property
-    def slug(self):
-        return slugify(self.title)
+    # Regex whole word slug shortener
+    _re_slug_shortener = re.compile(r"^([\w-]{0, %d})-" % self.slug.max_length)
+
+    def auto_slugify(self):
+        """Set slug from title."""
+        self.slug = self.slugify(self.title)
+
+    def slugify(self, text):
+        """Generate whole word slug no longer than slug.max_length."""
+        slug = slugify(text)
+        if len(slug) > self.slug.max_length:
+            match = self._re_slug_shortener(slug)
+            slug = match.group(1)
+        return slug
 
     """
     def children(self):
