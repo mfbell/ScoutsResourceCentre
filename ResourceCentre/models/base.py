@@ -111,7 +111,6 @@ class Resource(models.Model):
         help_text="Users with permission to edit the resource.",
         related_name="%(class)s_editor_roles",
         related_query_name="%(class)s_editor_role",
-        null=True,
         blank=True
     )
     contributors = models.ManyToManyField(
@@ -119,7 +118,6 @@ class Resource(models.Model):
         help_text="Users who have contributed to the resource.",
         related_name="%(class)s_contributions",
         related_query_name="%(class)s_contribution",
-        null=True,
         blank=True
     )
     PUBLIC = "PU"
@@ -148,7 +146,7 @@ class Resource(models.Model):
     #generated_from <- future feature
 
     # Regex whole word slug shortener
-    _re_slug_shortener = re.compile(r"^([\w-]{0, %d})-" % self.slug.max_length)
+    _re_slug_shortener = re.compile(r"^([\w-]{0, %d})-" % slug.max_length)
 
     def auto_slugify(self):
         """Set slug from title."""

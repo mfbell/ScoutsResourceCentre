@@ -10,7 +10,7 @@ app_name = 'ResourceCentre'
 
 resource_patterns = [
     path("", views.resource_view_divider, name="resource"),
-    path("edit", views.ResourceEditView.as_view(), name="resource-edit"),
+    path("edit", views.GenericResourceEdit.as_view(), name="resource-edit"),
 ]
 
 category_patterns = [
