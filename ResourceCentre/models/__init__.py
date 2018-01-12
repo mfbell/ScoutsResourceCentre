@@ -1,1 +1,2 @@
-from .resources import Activity, Meeting, Camp, RiskAssessmentElement, RiskAssessment
+from .events import Activity, Meeting, Camp
+from .riskassessments import RiskAssessmentElement, RiskAssessment
