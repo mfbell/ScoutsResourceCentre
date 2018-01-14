@@ -9,15 +9,13 @@
   <div id="intro">
     <div class="container">
       <div class="row">
-        <div class="col-md-10 parent">
-          <div class="centered">
+        <div class="col-md-10 col-centered">
             <h2 class="display-4 mb-2">Scouts Resource Centre</h2>
             <hr>
             <h4 class="my-4">Find, create and share documents needed for Scouting.</h4>
             <a href="/resources/">
               <button class="btn btn-outline-light px-4 py-2">Launch <i class="fa fa-rocket" aria-hidden="true"></i></button>
             </a>
-          </div>
         </div>
       </div>
     </div>
@@ -26,20 +24,64 @@
 
 {% block content %}
   <main>
-    <h1>Lorem ipsum dolor</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <em>quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</em> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <h2>Lorem ipsum dolor</h2>
-    <p><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</strong> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <ul>
-      <li>Lorem ipsum dolor sit amet</li>
-      <li>consectetur adipiscing elit</li>
-    </ul>
-    <h3>Lorem ipsum dolor</h3>
-    <ol>
-      <li>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</li>
-      <li>Ut enim ad minim veniam</li>
-    </ol>
-    <h4>Lorem ipsum dolor</h4>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <div class="container" id="info">
+      <div class="row pb-5">
+        <div class="col col-lg-8">
+          <!-- About us -->
+          <div class="card text-center bg-light">
+            <h5 class="card-header">Who we are...</h5>
+            <div class="card-body">
+              <h5 class="card-title">A group of volunteers</h5>
+              <p class="card-text">We want to make activity paperwork easy, so we create a website just for thats. Here you can find, create and share activities, meetings, camps and risk assessment. Over the last year we slowly crafted this tool.</p>
+              <a href="/about-us/" class="btn btn-primary">Find out more</a>
+            </div>
+          </div>
+        </div>
+        <div class="col col-lg-4">
+          <!-- Donate -->
+          <div class="card text-center text-white bg-info">
+            <img class="card-img-top" src="http://btckstorage.blob.core.windows.net/site13879/Scouts%20Image%201.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Support us!</h5>
+              <p class="card-text">We are entirely funded though your donations, permium plan and a few ads.</p>
+              <a href="/upgrade/" class="btn btn-primary">Upgrade</a>
+              <a href="/donate/" class="btn btn-primary">Donate</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-md-4">
+          <div class="card text-center">
+            <img class="card-img-top" src="http://c1.hiqcdn.com/blog/sites/default/files/styles/large/public/yangtze-ri.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col col-md-4">
+          <div class="card text-center">
+            <img class="card-img-top" src="http://c1.hiqcdn.com/blog/sites/default/files/styles/large/public/yangtze-ri.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col col-md-4">
+          <div class="card text-center">
+            <img class="card-img-top" src="http://c1.hiqcdn.com/blog/sites/default/files/styles/large/public/yangtze-ri.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 {% endblock %}
