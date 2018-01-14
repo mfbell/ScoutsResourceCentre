@@ -30,7 +30,7 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
           <!-- Navbar brand -->
-          <a class="navbar-brand" href="/">Scouts Resource Centre</a>
+          <a class="navbar-brand" href="/resources/">Scouts Resource Centre</a>
           <!-- Collapse button -->
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <!-- Collapsible content -->
@@ -40,11 +40,22 @@
               <form class="form-inline" action="/search">
                 <input class="form-control bg-dark text-light mr-sm-2 py-1" type="search" placeholder="Search" aria-label="Search", name="q", required>
               </form>
-              <a class="nav-item nav-link" href="/resources/">Resources</a>
+              <a class="nav-item nav-link" href="/blog/">Blog</a>
               <a class="nav-item nav-link" href="/about-us/">About us</a>
               <a class="nav-item nav-link" href="/donate/">Donate</a>
               <!-- Right alignment needed -->
-              <a class="nav-item nav-link" href="/sign-in/"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Sign up</a>
+              <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Sign up</a>
+                <div class="dropdown-menu">
+                  <form class="form-inline" action="/sign-in" method="post">
+                    <input class="form-control mx-3 mt-3" type="email" placeholder="Email address" aria-label="email", name="email", required>
+                    <input class="form-control mx-3 my-2" type="password" placeholder="Password" aria-label="password", name="password", required>
+                    <!-- Align right -->
+                    <input type="submit" class="btn btn-secondary ml-3" value="Sign in" formaction="/sign-in">
+                    <input type="submit" class="btn btn-primary mr-3 ml-2" value="Sign up" formaction="/sign-up">
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -54,42 +65,44 @@
     {% block content %}
       <p>Content placeholder - This page's content is missing!</p>
     {% endblock %}
-    <footer>
-      <div class="container text-center text-md-left">
+    <footer class="bg-info text-center pt-3">
+      <div class="container">
         <div class="row">
-          <div class="col-md-3 col-lg-4 col-xl-3">
-              <h6>Scouts Resource Centre</h6>
-              <hr class="footer-title mb-4 mt-0 d-inline-block mx-auto">
-              <p>Resources</p>
-              <p>Activities</p>
-              <p>Meetings</p>
-              <p>Camps</p>
-              <p>Risk Assessments</p>
+          <div class="col-md">
+            <p><a href="/about-us/">About us</a></p>
           </div>
-          <div class="col-md-2 col-lg-2 col-xl-2">
-              <h6><strong>Useful Links</strong></h6>
-              <hr class="footer-title mb-4 mt-0 d-inline-block mx-auto">
-              <p><a href="#!">Resources</a></p>
-              <p><a href="#!">My Accout</a></p>
-              <p><a href="#!">Legal</a></p>
-              <p><a href="#!">Blog</a></p>
+          <div class="col-md">
+            <p><a href="/contact-us/">Contact us</a></p>
           </div>
-          <div class="col-md-4 col-lg-4 col-xl-4">
-              <h6><strong>Contact</strong></h6>
-              <hr class="footer-title mb-4 mt-0 d-inline-block mx-auto">
-              <p><i class="fa fa-home mr-3"></i>Devon, UK</p>
-              <p><i class="fa fa-envelope mr-3"></i>info@scoutsresourcecentre.com</p>
+          <div class="col-md">
+            <p><a href="/blog/">Blog</a></p>
+          </div>
+          <div class="col-md">
+            <p><a href="/report-bug/">Report a bug</a></p>
+          </div>
+          <div class="col-md">
+            <p><a href="/legal/">Legal</a></p>
+          </div>
+          <div class="col-md">
+            <p><a href="/accessiblity/">Accessiblity</a></p>
+          </div>
+          <div class="col-md">
+            <p><a href="/help/">Help</a></p>
+          </div>
+          <div class="col-md">
+            <p><a href="/shop/">Shop</a></p>
           </div>
         </div>
       </div>
-      <div class="container-fluid text-center bg-dark text-light">
+      <div class="container-fluid bg-dark">
         <div class="row">
           <div class="col">
-            <p class="my-3">Copyright &copy 2017 <a href="/about-us/legal#copyright" class="text-light">Scouts Resource Centre</a></p>
+            <p class="my-3">Copyright &copy 2017 Scouts Resource Centre</p>
           </div>
         </div>
       </div>
     </footer>
+
     <!-- jQuerry, Popper, Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>

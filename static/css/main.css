@@ -14,3 +14,9 @@ hr.footer-title {
   text-align: center;
   align-items: center;
 }
+
+footer,
+footer a {
+  color: white;
+  font-size: 0.85rem;
+}
