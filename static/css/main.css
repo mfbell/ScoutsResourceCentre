@@ -10,7 +10,7 @@ hr.footer-title {
 }
 
 .col-centered {
-  margin: auto;
+  margin: 0 auto;
   text-align: center;
   align-items: center;
 }
