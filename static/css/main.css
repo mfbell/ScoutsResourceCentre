@@ -4,3 +4,12 @@ html,
 body {
   font-family: 'Roboto', sans-serif;
 }
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+.hr-footer-title {
+  width: 50%
+}

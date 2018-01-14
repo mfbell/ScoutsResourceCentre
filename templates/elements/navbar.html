@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-dark red sticky-top scrolling-navbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <div class="container">
     <!-- Navbar brand -->
     <a class="navbar-brand" href="/">Scouts Resource Centre</a>
@@ -7,18 +7,16 @@
     <!-- Collapsible content -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Links -->
-      <ul class="navbar-nav  mr-auto">
-        <li class="nav-item">
-          <a class="nav-link waves-effect waves-light" href="/resources/">Resources</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link waves-effect waves-light" href="/badges/">Badges</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link waves-effect waves-light" href="/users/">Users</a>
-        </li>
-      </ul>
-      <!-- Links -->
+      <div class="navbar-nav">
+        <form class="form-inline" action="/search">
+          <input class="form-control bg-dark text-light mr-sm-2 py-1" type="search" placeholder="Search" aria-label="Search", name="q", required>
+        </form>
+        <a class="nav-item nav-link" href="/resources/">Resources</a>
+        <a class="nav-item nav-link" href="/about-us/">About us</a>
+        <a class="nav-item nav-link" href="/donate/">Donate</a>
+        <!-- Right alignment needed -->
+        <a class="nav-item nav-link" href="/sign-in/"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Sign in</a>
+      </div>
     </div>
   </div>
 </nav>
