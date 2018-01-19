@@ -18,7 +18,7 @@ from django.contrib import admin
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("resources/", include("ResourceCentre.urls")),
+    path("", include("ResourceCentre.urls")),
     #path("badges/", include("BadgeInfo.urls")),
     path("", include("LandingPage.urls")),
 ]
