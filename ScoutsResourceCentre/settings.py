@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 
 INSTALLED_APPS = [
     'BadgeInfo.apps.BadgeinfoConfig',
-    'LandingPage.apps.LandingpageConfig',
     'ResourceCentre.apps.ResourcecentreConfig',
     'django.contrib.admin',
     'django.contrib.auth',
