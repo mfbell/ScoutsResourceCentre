@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from . import models
 # Activity, Meeting, Camp, RiskAssessmentElement, RiskAssessment
 
-
+"""
 class ActivityForm(ModelForm):
     class Meta:
         model = models.Activity
@@ -31,3 +31,4 @@ class ActivityForm(ModelForm):
             "cost_approx",
             "duration"
         ]
+"""

@@ -17,13 +17,13 @@ def create(request):
 
 class Resource(View):
     templates = {
-        "activity": "ResourceCentre/activity.html",
-        "risk-assessment": "ResourceCentre/risk-assessment.html"
+        models.Activity: "ResourceCentre/activity.html",
+        models.RiskAssessment: "ResourceCentre/risk-assessment.html"
     }
 
     def get(self, request, slug):
-        resource = get_object_or_404(models.Resource, slug=slug)
-        return render(request, self.templates[resource.type], {"resource": resource})
+        resource = get_object_or_404(models.ResourceSlug, slug=slug).resource
+        return render(request, self.templates[type(resource)], {"resource": resource})
 
     def post(self, request, slug):
-        pass
+        resource = get_object_or_404(models.ResourceSlug, slug=slug).resource

@@ -8,13 +8,22 @@ from django.db import models
 
 PK = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
+class ResourceSlug(models.Model):
+    """Resource slug handling model."""
+    id = PK
+    slug = models.SlugField(
+        unique=True,
+        help_text="Custom resource URL."
+    )
+
 class Resource(models.Model):
     """Base resource model."""
-    pk = PK
+    id = PK
     title = models.CharField(max_length=128)
-    slug = models.SlugField(
-        unique=True
-        help_text="Custom resource URL."
+    slug = models.OneToOneField(
+        ResourceSlug,
+        on_delete=models.CASCADE,
+        related_name="resource"
     )
     description = models.CharField(max_length=512, blank=True)
     beavers = models.BooleanField(default=False)
@@ -25,11 +34,9 @@ class Resource(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     curated = models.BooleanField(default=False)
-    # Inherited FK related name/query name catch
-    # https://docs.djangoproject.com/en/1.11/topics/db/models/#be-careful-with-related-name-and-related-query-name
     contributors = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
-        help_text="Users who have contributed to the resource."
+        help_text="Users who have contributed to the resource.",
         blank=True
     )
     complete = models.BooleanField(
@@ -40,10 +47,13 @@ class Resource(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        abstract = True
+
 
 class RiskAssessmentRisk(models.Model):
     """Risk Assessment Risk model."""
-    pk = PK
+    id = PK
     risk = models.CharField(
         max_length=128,
         help_text="State the risk.",
@@ -62,7 +72,7 @@ class RiskAssessmentRisk(models.Model):
     )
     affectee = models.CharField(
         max_length=2,
-        choices=AFFECTANTS,
+        choices=AFFECTEES,
         default=EVERYONE,
         help_text="Who is at risk.",
     )
@@ -175,7 +185,7 @@ class Activity(Resource):
 
 
 class ActivityStage(models.Model):
-    pk = PK
+    id = PK
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
     description = models.TextField(help_text="Stage explanation.")
@@ -189,7 +199,7 @@ def uuid4_filename(instance, filename):
     return "{}.{}".format(name, ext)
 
 class ActivityStageImage(models.Model):
-    pk = PK
+    id = PK
     activity_stage = models.ForeignKey(ActivityStage, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=uuid4_filename)
-    description = models.CharField(blank=True)
+    description = models.CharField(max_length=128, blank=True)
