@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block main %}
+<div id="resource" class="container">
+  <div id="overview">
+    <h1>{{ resource.title }}</h1>
+    <a href="{% url 'ResourceCentre:edit-resource' resource.slug.slug %}">Edit</a>
+    <p>{{ resource.curated|yesno:"Curated," }}</p>
+    <p>{{ resource.complete|yesno:"Complete,Work in progress" }}</p>
+    <p>{{ resource.sections|join:", " }}</p>
+    <p>Created by {{ resource.contributors.all|join:", "|default:"unknown creator"}}.</p>
+    <p>Recommended {{ resource.leaders }} leader{{ resource.leaders|pluralize }}, {{ resource.young_leaders }} young leader{{ resource.young_leaders|pluralize }}.</p>
+    <p>Location: {{ resource.location }}</p>
+    <p>{{ resource.young_people_low }} to {{ resource.young_people_high }} young people.</p>
+    <p>{{ resource.activity_size }} activity.</p>
+    <p>{{ resource.inside_outside }}.</p>
+    <p>{{ resource.description }}</p>
+  </div>
+  <nav id="resource-nav">
+    <a href="#overview"><div>Overview</div></a>
+    {% for stage in resource.activitystage_set.all %}
+    <a href="#activity-stage--{{ stage.title|slugify }}"><div>{{ stage.title }}</div></a>
+    {% endfor %}
+    <a href="#risk-assessment"><div>Risk assessment</div></a>
+  </nav>
+  <div id="activity-stages">
+  {% for stage in resource.activitystage_set.all %}
+    <div id="activity-stage--{{ stage.title|slugify }}">
+      <h2>{{ stage.title }}</h2>
+      <div>
+      {% for image in stage.activitystageimage_set.all %}
+        <figure>
+          <img src="{% static image.image %}" alt="{{ image.description }}">
+          <figcaption>{{ image.description }}</figcaption>
+        </figure>
+      {% endfor %}
+      </div>
+      <p>{{ stage.description }}</p>
+      <p>{{ stage.equipment }}</p>
+      {% include "ResourceCentre/risk-assessment-table.html" with risks=stage.risks empty_text="No risk assessment created for this stage yet." %}
+    </div>
+  {% empty %}
+    <p>No stages created yet.</p>
+  {% endfor %}
+  </div>
+  <div id="risk-assessment">
+    <h2>Full risk assessment</h2>
+    {% include "ResourceCentre/risk-assessment-table.html" with risks=resource.risks empty_text="No risk assessments created for any stages yet." %}
+  </div>
+</div>
+{% endblock %}
