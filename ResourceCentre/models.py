@@ -4,6 +4,9 @@ import uuid
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.models import ContentType
 
 
 PK = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -15,16 +18,18 @@ class ResourceSlug(models.Model):
         unique=True,
         help_text="Custom resource URL."
     )
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    resource_id = models.UUIDField()
+    resource = GenericForeignKey('content_type', 'resource_id')
+
+    class Meta:
+        unique_together   = ('content_type', 'resource_id')
+
 
 class Resource(models.Model):
     """Base resource model."""
     id = PK
     title = models.CharField(max_length=128)
-    slug = models.OneToOneField(
-        ResourceSlug,
-        on_delete=models.CASCADE,
-        related_name="resource"
-    )
     description = models.CharField(max_length=512, blank=True)
     beavers = models.BooleanField(default=False)
     cubs = models.BooleanField(default=False)
@@ -46,6 +51,36 @@ class Resource(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def sections(self):
+        sections = []
+        if self.beavers:
+            sections.append("Beavers")
+        if self.cubs:
+            sections.append("Cubs")
+        if self.scouts:
+            sections.append("Scouts")
+        if self.explorers:
+            sections.append("Explorer")
+        if self.network:
+            sections.append("Network")
+        return sections
+
+    slug_relation = GenericRelation(
+        ResourceSlug,
+        related_query_name="%(class)s",
+        content_type_field='content_type',
+        object_id_field='resource_id'
+    )
+
+    @property
+    def slug(self):
+        return self.slug_relation.first()
+
+    @property
+    def risks(self):
+        return RiskAssessmentRisk.objects.filter(activitystage__activity=self)
 
     class Meta:
         abstract = True
@@ -86,6 +121,7 @@ class RiskAssessmentRisk(models.Model):
         (MEDIUM, "Medium"),
         (HIGH, "High"),
     )
+    RATINGS_ORDER = [rate[0] for rate in RATINGS]
     severity = models.CharField(
         max_length=2,
         choices=RATINGS,
@@ -110,8 +146,8 @@ class RiskAssessmentRisk(models.Model):
     @property
     def level(self):
         """Risk level calculator."""
-        severity = self.RATINGS.index(self.severity) + 1
-        chance = self.RATINGS.index(self.chance) + 1
+        severity = self.RATINGS_ORDER.index(self.severity) + 1
+        chance = self.RATINGS_ORDER.index(self.chance) + 1
         risk = severity * chance
         if risk < 4:
             return "Low"
@@ -190,7 +226,11 @@ class ActivityStage(models.Model):
     title = models.CharField(max_length=64)
     description = models.TextField(help_text="Stage explanation.")
     equipment  = models.TextField(blank=True)
-    risks = models.ManyToManyField(RiskAssessmentRisk)
+    risks = models.ManyToManyField(
+        RiskAssessmentRisk,
+        null=True,
+        blank=True
+    )
 
 
 def uuid4_filename(instance, filename):
@@ -198,8 +238,11 @@ def uuid4_filename(instance, filename):
     name = uuid.uuid4().hex
     return "{}.{}".format(name, ext)
 
+def activity_stage_image_filename(instance, filename):
+    return "activity-stage-images/{}".format(uuid4_filename(instance, filename))
+
 class ActivityStageImage(models.Model):
     id = PK
     activity_stage = models.ForeignKey(ActivityStage, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to=uuid4_filename)
+    image = models.ImageField(upload_to=activity_stage_image_filename)
     description = models.CharField(max_length=128, blank=True)
