@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <title>{{ title|default:"Scouts Resource Centre" }}</title>
-    <link rel="icon" href="{% static "icon.ico" %}">
+    <link rel="icon" href="{% static "favicon.ico" %}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'"> -->
     <!-- CSS -->
@@ -16,17 +16,9 @@
     <meta name="keywords" content="{{ keywords }}">
     <meta name="author" content="{{ author|default:"Scouts Resource Centre" }}">
     {% block extend_head %}{% endblock %}
-    <!-- To do at some point
-    <noscript>
-      <div>
-        <p>We are unable to use JavaScript, functionality will be limited.</p>
-      </div>
-    </noscript>
-    -->
   </head>
   <body>
     <header>
-
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
           <!-- Navbar brand -->
@@ -51,37 +43,12 @@
       </nav>
       {% block extend_header %}{% endblock %}
     </header>
-    {% block content %}
-      <p>Content placeholder - This page's content is missing!</p>
-    {% endblock %}
+    <main>
+      {% block main %}
+        <p>Content placeholder - This page's content is missing!</p>
+      {% endblock %}
+    </main>
     <footer>
-      <div class="container text-center text-md-left">
-        <div class="row">
-          <div class="col-md-3 col-lg-4 col-xl-3">
-              <h6>Scouts Resource Centre</h6>
-              <hr class="footer-title mb-4 mt-0 d-inline-block mx-auto">
-              <p>Resources</p>
-              <p>Activities</p>
-              <p>Meetings</p>
-              <p>Camps</p>
-              <p>Risk Assessments</p>
-          </div>
-          <div class="col-md-2 col-lg-2 col-xl-2">
-              <h6><strong>Useful Links</strong></h6>
-              <hr class="footer-title mb-4 mt-0 d-inline-block mx-auto">
-              <p><a href="#!">Resources</a></p>
-              <p><a href="#!">My Accout</a></p>
-              <p><a href="#!">Legal</a></p>
-              <p><a href="#!">Blog</a></p>
-          </div>
-          <div class="col-md-4 col-lg-4 col-xl-4">
-              <h6><strong>Contact</strong></h6>
-              <hr class="footer-title mb-4 mt-0 d-inline-block mx-auto">
-              <p><i class="fa fa-home mr-3"></i>Devon, UK</p>
-              <p><i class="fa fa-envelope mr-3"></i>info@scoutsresourcecentre.com</p>
-          </div>
-        </div>
-      </div>
       <div class="container-fluid text-center bg-dark text-light">
         <div class="row">
           <div class="col">
