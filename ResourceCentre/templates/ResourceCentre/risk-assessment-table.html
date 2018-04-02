@@ -1,0 +1,30 @@
+<table class="risk-assessment-table">
+  <thead>
+    <tr>
+      <th>Risk</th>
+      <th>Cause</th>
+      <th>Affectees</th>
+      <th>Severity</th>
+      <th>Chance</th>
+      <th>Risk level</th>
+      <th>Mitigation</th>
+      <th>Responce</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for risk in risks.all %}
+    <tr>
+      <th>{{ risk.risk }}</th>
+      <th>{{ risk.cause}}</th>
+      <th>{{ risk.affectee }}</th>
+      <th>{{ risk.severity }}</th>
+      <th>{{ risk.chance}}</th>
+      <th>{{ risk.level }}</th>
+      <th>{{ risk.mitigation }}</th>
+      <th>{{ risk.responce }}</th>
+    <tr>
+  {% empty %}
+    <tr><th colspan="8">{{ empty_text }}</th></tr>
+  {% endfor %}
+  </tbody>
+</table>
